@@ -1,0 +1,25 @@
+bool canPair(vector<int> nums, int k) {
+        int n = nums.size();
+        for(int i = 0; i < n; i++){
+            nums[i] = nums[i]%k;
+        }
+        
+        map<int, int> mp;
+        for(int i = 0; i < n; i++){
+            if(nums[i] == 0)
+                continue;
+            if(mp.find(k - nums[i]) == mp.end()){
+                if(mp.find(nums[i]) == mp.end())
+                    mp.insert(pair<int, int>(nums[i], 1));
+                else
+                    mp[nums[i]]++;
+            }else{
+                mp[k - nums[i]]--;
+                if(mp[k - nums[i]] == 0)
+                    mp.erase(k - nums[i]);
+            }
+        }
+        if(mp.size() == 0)
+            return true;
+        return false;
+    }
