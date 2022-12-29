@@ -1,0 +1,46 @@
+vector<int> asteroidCollision(int n, vector<int> &asteroids) {
+        stack<int> s;
+        int i = 1;
+        s.push(asteroids[0]);
+        while(i < n){
+            if(!s.empty()){
+                int top = s.top();
+                int next = asteroids[i];
+                if((top > 0 && next > 0) || (top < 0 && next < 0) || (top < 0 && next > 0)){
+                    s.push(asteroids[i]);
+                }else if(top > 0 && next < 0){
+                    while(!s.empty() && top > 0 && next < 0){
+                        if(abs(top) != abs(next)){
+                            if(abs(top) > abs(next)){
+                                break;
+                            }else{
+                                s.pop();
+                                if(!s.empty())
+                                    top = s.top();
+                                else{
+                                    top = 0;
+                                    break;
+                                }
+                            }
+                        }else{
+                            s.pop();
+                            break;
+                        }
+                    }
+                    if(top <= 0){
+                        s.push(next);
+                    }
+                }
+            }else{
+                s.push(asteroids[i]);
+            }
+            i++;
+        }
+        vector<int> ans;
+        while(!s.empty()){
+            ans.push_back(s.top());
+            s.pop();
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
