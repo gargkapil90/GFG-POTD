@@ -1,0 +1,13 @@
+int minOperation(string s) {
+        int ans = s.length();
+        for(int i = 0; i < s.length()/2; i++){
+            bool valid = true;
+            for(int j = 0; j <=i && valid; j++){
+                if(s[j] != s[j+i+1])
+                    valid = false;
+            }
+            if(valid)
+                ans = s.length() - i;
+        }
+        return ans;
+    }
