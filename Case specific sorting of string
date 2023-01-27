@@ -1,0 +1,26 @@
+string caseSort(string str, int n)
+    {
+        string upper = "";
+        string lower = "";
+        for(int i = 0; i < n; i++){
+            char ch = str[i];
+            if(isupper(ch)){
+                upper += ch;
+            }else{
+                lower += ch;
+            }
+        }
+        sort(upper.begin(), upper.end());
+        sort(lower.begin(), lower.end());
+        int up = 0;
+        int low = 0;
+        string ans = "";
+        for(int i =0; i < n; i++){
+            if(isupper(str[i])){
+                ans += upper[up++];
+            }else{
+                ans += lower[low++];
+            }
+        }
+        return ans;
+    }
