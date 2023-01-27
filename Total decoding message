@@ -1,0 +1,41 @@
+int CountWays(string str){
+		    int n = str.length();
+		    int MOD = 1000000007;
+		  //  int dp[n] = {0};
+		    if(str[0] == '0')
+		        return 0;
+		  //  dp[0] = 1;
+		    int prev1 = 1;
+		    int prev2 = 0;
+		    int curr  = 0;
+		    for(int i = 1; i < n; i++){
+		        if(str[i] == '0' && str[i-1] == '0'){
+		          //  dp[i] = 0;
+		          curr = 0;
+		        }
+		        else if(str[i] == '0' && str[i-1] != '0'){
+		            if(str[i-1] == '1' || str[i-1] == '2'){
+		              //  dp[i] = (i >= 2 ? dp[i-2] : 1)%MOD;
+		                curr = (i >= 2 ? prev2 : 1)%MOD;
+		            }else{
+		                curr = 0;
+		            }
+		        }
+		        else if(str[i] != '0' && str[i-1] == '0'){
+		            //dp[i] = dp[i-1]%MOD;
+		            curr = prev1%MOD;
+		        }
+		        else{
+		            if(str[i-1] == '1' || (str[i-1] == '2' && (str[i] - '0' <= 6))){
+		              //  dp[i] = (dp[i-1]%MOD + (i >= 2 ? dp[i-2] : 1)%MOD)%MOD;
+		              curr = (prev1%MOD + (i >= 2 ? prev2 : 1)%MOD)%MOD;
+		            }else{
+		              //  dp[i] = dp[i-1]%MOD;
+		              curr = prev1%MOD;
+		            }
+		        }
+		        prev2 = prev1;
+		        prev1 = curr;
+		    }
+		    return prev1;
+		}
