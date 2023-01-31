@@ -1,0 +1,17 @@
+int minRepeats(string A, string B) {
+        string temp = A;
+        int moves = 1;
+        while(temp.length() < B.length()){
+            temp += A;
+            moves++;
+        }
+        if(temp.find(B) != -1){
+            return moves;
+        }
+        temp += A;
+        moves++;
+        if(temp.find(B) != -1){
+            return moves;
+        }
+        return -1;
+    }
