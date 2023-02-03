@@ -1,0 +1,39 @@
+class Solution{
+    public:
+    bool isSafe(int i , int j, int n, int m){
+        if(i < 0 || j < 0 || i >= n || j >= m)
+            return false;
+        return true;
+    }
+    pair<int,int> endPoints(vector<vector<int>> matrix, int R, int C){
+        //code here
+        int i = 0;
+        int j = 0;
+        char currentDir = 'r';
+        map<char, char> dirs;
+        dirs.insert({'r','d'});
+        dirs.insert({'d','l'});
+        dirs.insert({'l','u'});
+        dirs.insert({'u','r'});
+        int curr_i = 0;
+        int curr_j = 0;
+        while(isSafe(i, j, R, C)){
+            curr_i = i;
+            curr_j = j;
+            if(matrix[i][j] == 1){
+                currentDir = dirs[currentDir];
+                matrix[i][j] = 0;
+            }
+            if(currentDir == 'r'){
+                j += 1;
+            }else if(currentDir == 'd'){
+                i += 1;
+            }else if(currentDir == 'l'){
+                j -= 1;
+            }else if(currentDir == 'u'){
+                i -= 1;
+            }
+        }
+        return {curr_i, curr_j};
+    }
+};
