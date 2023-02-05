@@ -1,0 +1,37 @@
+int findIntersaction(int diff, Node* head1, Node* head2){
+        while(diff > 0){
+            head1 = head1->next;
+            diff--;
+        }
+        Node* p1 = head1;
+        Node* p2 = head2;
+        while(p1 != p2){
+            p1 = p1->next;
+            p2 = p2->next;
+        }
+        return p1->data;
+        
+    }
+    int intersectPoint(Node* head1, Node* head2)
+    {
+        Node* temp = head1;
+        Node* temp2 = head2;
+        int n1 = 0;
+        int n2 = 0;
+        while(temp != NULL){
+            n1++;
+            temp = temp->next;
+        }
+        while(temp2 != NULL){
+            n2++;
+            temp2 = temp2->next;
+        }
+        int diff = 0;
+        if(n1 > n2){
+            diff = n1 - n2;
+            return findIntersaction(diff, head1, head2);
+        }else{
+            diff = n2 - n1;
+            return findIntersaction(diff, head2, head1);
+        }
+    }
