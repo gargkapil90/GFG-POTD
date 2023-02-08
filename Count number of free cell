@@ -1,0 +1,36 @@
+class Solution{
+  public:
+  vector<long long int> countZero(int n, int k, vector<vector<int>>& arr){
+      int rk = 0;
+      int ck = 0;
+      int current = n*n;
+      int row[n+1] = {0};
+      int col[n+1] = {0};
+      vector<long long int> ans;
+      for(int i = 0; i < k; i++){
+          int r = arr[i][0];
+          int c = arr[i][1];
+          if(row[r] == 1 && col[c] == 1){
+              ans.push_back(current);
+          }else if(row[r] == 1){
+              ck++;
+              current = current - n + rk;
+              col[c] = 1;
+              ans.push_back(current);
+          }else if(col[c] == 1){
+              rk++;
+              current = current - n + ck;
+              ans.push_back(current);
+              row[r] = 1;
+          }else{
+              current = current - n - n + ck + rk + 1;
+              ck++;
+              rk++;
+              ans.push_back(current);
+              row[r] = 1;
+              col[c] = 1;
+          }
+      }
+      return ans;
+  }
+};
