@@ -1,0 +1,29 @@
+class Solution{
+public:
+    int maxInstance(string s){
+        int n = s.length();
+        int ballon[26] = {0};
+        for(int i = 0; i < n; i++){
+            char ch = s[i];
+            if(ch == 'b' || ch == 'a' || ch == 'l' || ch == 'o' || ch == 'n'){
+                ballon[ch - 'a']++;
+            }
+        }
+        
+        int ans  = INT_MAX;
+        for(int i = 0; i < 26; i++){
+            if(ballon['b' - 'a'] == 0 || ballon['a' - 'a'] == 0 || ballon['l' - 'a'] == 0 ||
+                ballon['o' - 'a'] == 0 || ballon['n' - 'a'] == 0){
+                return 0;
+            }else{
+                if(i == 'l' - 'a' || i == 'o' - 'a'){
+                    ans = min(ans, ballon[i]/2);
+                }else if(i == 'b' - 'a' || i == 'a' - 'a' ||
+                    i == 'n' - 'a'){
+                    ans = min(ans, ballon[i]);
+                }
+            }
+        }
+        return ans;
+    }
+};
